@@ -1,0 +1,27 @@
+* {
+  box-sizing: border-box;
+}
+
+button {
+  background-color:indigo;
+  border-color: indigo;
+  color: white;
+  font-size: 25px;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 10px;
+}
+
+button:hover {
+  background-color: violet;
+  border-color: violet;
+}
+
+@media screen and (max-width: 1183px) {
+
+}
+
+@media screen and (max-width: 504px) {
+ 
+}
