@@ -12,10 +12,9 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 1%;
-  visibility: visible;
 }
 
-#scores {
+#scoreLink {
   text-decoration: none;
   color: violet
 }
@@ -48,10 +47,7 @@ main {
 
 hr {
   width: 100%;
-}
-
-#answer {
-  color: white
+  margin-top: 3%;
 }
 
 @media screen and (max-width: 1183px) {
