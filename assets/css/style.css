@@ -51,15 +51,9 @@ hr {
 }
 
 @media screen and (max-width: 1183px) {
-  button {
-    background-color: aqua;
-    font-size: 15px;
-  }
+
 }
 
 @media screen and (max-width: 504px) {
-  button {
-    background-color: red;
-    font-size: 10px;
-  }
+
 }
