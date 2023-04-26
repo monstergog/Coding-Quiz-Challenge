@@ -7,6 +7,7 @@ var scoreboard = document.querySelector('#scoreboard');
 var start = document.querySelector('#start');
 var answer = document.querySelector('#answer');
 var submit = document.querySelector('#submit');
+var choice = document.querySelector('.choice');
 
 var question1 = [ 'Javascript is a ___ language?',
   '1. Object-oriented',
@@ -100,15 +101,45 @@ var question10 = [
 var questions = [question1, question2, question3, question4, question5, question6, question7, question8, question9, question10];
 
 start.addEventListener('click', startQuiz);
-choices.addEventListener('click', quizChoice);
 scoreLink.addEventListener('click', viewHighScores);
 submit.addEventListener('click', submitScore);
+
+var currentQuestion = 0;
+
+choices.addEventListener('click', function (event){
+  var element =  event.target;
+
+  if (element.matches('button') === true) {
+    var chosen = element.getAttribute('data-index');
+    if (questions[currentQuestion][5] == chosen) {
+      answer.textContent = 'Correct!';
+      currentQuestion++;
+      nextQuestion(currentQuestion);
+    } else {
+      answer.textContent = 'Wrong!';
+      timeLeft -= 10;
+    }
+  }
+});
 
 function startQuiz () {
   start.setAttribute('style', 'display: none;')
   choices.setAttribute('style', 'display: block;');
   timerFunction();
-  quizChoice();
+  nextQuestion(currentQuestion);
+}
+
+// Renders question and multuple choice answers based on input parameter number
+function nextQuestion(questionNumber) {
+  if (questionNumber < 10) {
+    question.textContent = questions[questionNumber][0];
+    choices.children[0].children[0].textContent = questions[questionNumber][1];
+    choices.children[1].children[0].textContent = questions[questionNumber][2];
+    choices.children[2].children[0].textContent = questions[questionNumber][3];
+    choices.children[3].children[0].textContent = questions[questionNumber][4];
+  } else {
+    question.textContent = 'All Done!'
+  }
 }
 
 var timeLeft = 120;
@@ -117,36 +148,12 @@ function timerFunction () {
     timeLeft--;
     timer.textContent = timeLeft;
 
-    if (timeLeft === 0) {
+    if (timeLeft <= 0) {
       clearInterval(timeInterval);
       submit.setAttribute('style', 'display: block;')
     }
   }
   , 1000)
-}
-
-function quizChoice (event) {
-  var element = event.target;
-  var firstQuestion = true;
-  // for (var i = 0; i < 10; i++) {
-    //choices.textContent = '';
-    // Renders question and multiple choice answers
-    // if (element.matches('button') === true || firstQuestion === true) {
-    //   firstQuestion = false;
-
-      for (var x = 1; x < 5; x++) {
-        var li = document.createElement('li');
-        var button = document.createElement('button');
-      
-        button.setAttribute('style', 'text-align: left; min-width: 40%;');
-        question.textContent = questions[1][0]
-        li.setAttribute('data-index', x + 1);
-        button.textContent = questions[1][x];
-
-        choices.appendChild(li).appendChild(button);
-      }
-    // }
-  // }
 }
 
 function submitScore (event) {

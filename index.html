@@ -14,14 +14,19 @@
     
     <main>
       <h1 id="question">Welcome to the Coding Quiz Challenge!</h1>
-      <ul id="choices"></ul>
+      <ul id="choices">
+        <li><button class="choice" data-index = 1></button></li>
+        <li><button class="choice" data-index = 2></button></li>
+        <li><button class="choice" data-index = 3></button></li>
+        <li><button class="choice" data-index = 4></button></li>
+      </ul>
       <ol id="scoreboard"></ol>
       <form id="submit">
         <label>Enter Initials:</label>
         <input type="text">
         <input type= "submit">
       </form>
-      <button id="start">Start the Quiz</button>
+      <button id="start" class="choice">Start the Quiz</button>
 
       <hr>
       <h2 id="answer">Try to answer the following code-releated questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by 10 seconds!</h2>

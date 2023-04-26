@@ -51,8 +51,21 @@ button:hover {
   list-style-type: none;
 }
 
+ul {
+  padding-left: 0%;
+}
+
 li {
   padding: 5px;
+}
+
+.choice {
+  text-align: left;
+  min-width: 40%;;
+}
+
+#start {
+  min-width: fit-content;
 }
 
 #scoreboard {
