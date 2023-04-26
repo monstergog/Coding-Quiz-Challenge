@@ -48,6 +48,7 @@ button:hover {
 
 #choices {
   display: none;
+  list-style-type: none;
 }
 
 #scoreboard {
