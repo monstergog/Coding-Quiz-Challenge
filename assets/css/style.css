@@ -25,7 +25,11 @@ main {
   padding: 5%;
 }
 
-button {
+form {
+  display: none;
+}
+
+button, input[type=submit] {
   background-color:indigo;
   border-color: indigo;
   color: white;
