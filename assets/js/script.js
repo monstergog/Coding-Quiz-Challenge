@@ -102,7 +102,7 @@ var questions = [question1, question2, question3, question4, question5, question
 
 start.addEventListener('click', startQuiz);
 scoreLink.addEventListener('click', viewHighScores);
-submit.addEventListener('click', submitScore);
+submit.addEventListener('submit', submitScore);
 
 var currentQuestion = 0;
 
@@ -137,8 +137,6 @@ function nextQuestion(questionNumber) {
     choices.children[1].children[0].textContent = questions[questionNumber][2];
     choices.children[2].children[0].textContent = questions[questionNumber][3];
     choices.children[3].children[0].textContent = questions[questionNumber][4];
-  } else {
-    question.textContent = 'All Done!'
   }
 }
 
@@ -147,9 +145,11 @@ function timerFunction () {
   var timeInterval = setInterval( function () {
     timeLeft--;
     timer.textContent = timeLeft;
-
-    if (timeLeft <= 0) {
+  
+    if (timeLeft <= 0 || currentQuestion === 10) {
       clearInterval(timeInterval);
+      question.textContent = 'All Done!';
+      choices.textContent = '';
       submit.setAttribute('style', 'display: block;')
     }
   }
