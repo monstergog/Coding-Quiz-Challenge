@@ -10,11 +10,12 @@ var submit = document.querySelector('#submit');
 
 start.addEventListener('click', startQuiz);
 scoreLink.addEventListener('click', viewHighScores);
+submit.addEventListener('click', submitScore);
 
 function startQuiz () {
   start.setAttribute('style', 'display: none;')
 
-  var timeLeft = 5;
+  var timeLeft = 2;
   var timeInterval = setInterval( function () {
     timeLeft--;
     timer.textContent = timeLeft;
@@ -30,6 +31,8 @@ function startQuiz () {
 
 function submitScore (event) {
   event.preventDefault();
+  header.setAttribute('style', 'visibility: hidden');
+  question.textContent = 'High Scores:';
   submit.setAttribute('style', 'display: none');
   scoreboard.setAttribute('style', 'display: block;');
 }
