@@ -51,6 +51,10 @@ button:hover {
   list-style-type: none;
 }
 
+li {
+  padding: 5px;
+}
+
 #scoreboard {
   background-color: lavender;
   display: none;
