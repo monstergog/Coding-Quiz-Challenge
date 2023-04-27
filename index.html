@@ -13,7 +13,7 @@
     </header>
     
     <main>
-      <h1 id="question">Welcome to the Coding Quiz Challenge!</h1>
+      <h1 id="question"></h1>
       <ul id="choices">
         <li><button class="choice" data-index = 1></button></li>
         <li><button class="choice" data-index = 2></button></li>
@@ -21,15 +21,20 @@
         <li><button class="choice" data-index = 4></button></li>
       </ul>
       <ol id="scoreboard"></ol>
+      <div id="highScoreOptions">
+        <button id="goBack">Go Back</button>
+        <button id="clearScores">Clear High Scores</button>
+      </div>
       <form id="submit">
-        <label>Enter Initials:</label>
-        <input type="text">
+        <div>Your Final Score: <span id="finalScore"></span></div>
+        <label for="initials">Enter Initials:</label>
+        <input id="initials" name="initials" type="text" placeholder="Enter Initials">
         <input type= "submit">
       </form>
       <button id="start" class="choice">Start the Quiz</button>
 
       <hr>
-      <h2 id="answer">Try to answer the following code-releated questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by 10 seconds!</h2>
+      <h2 id="answer"></h2>
     </main>
 
     <script src="assets/js/script.js"></script>

@@ -7,9 +7,15 @@ var scoreboard = document.querySelector('#scoreboard');
 var start = document.querySelector('#start');
 var answer = document.querySelector('#answer');
 var submit = document.querySelector('#submit');
+var initials = document.querySelector('#initials');
 var choice = document.querySelector('.choice');
+var finalScore = document.querySelector('#finalScore');
+var highScoreOptions = document.querySelector('#highScoreOptions');
+var goBack = document.querySelector('#goBack');
+var clearScore = document.querySelector('#clearScore');
 
-var question1 = [ 'Javascript is a ___ language?',
+var question1 = [
+  'Javascript is a ___ language?',
   '1. Object-oriented',
   '2. Object-based',
   '3. Procedural',
@@ -98,13 +104,21 @@ var question10 = [
   1
 ]
 
+var currentQuestion = 0;
+var started = false;
+var timeLeft = 120;
 var questions = [question1, question2, question3, question4, question5, question6, question7, question8, question9, question10];
+var highScores = [];
 
 start.addEventListener('click', startQuiz);
-scoreLink.addEventListener('click', viewHighScores);
+scoreLink.addEventListener('click', function (event) {
+  event.preventDefault();
+  if (!started) {
+    viewHighScores();
+  }
+});
 submit.addEventListener('submit', submitScore);
-
-var currentQuestion = 0;
+goBack.addEventListener('click', goBackFunction)
 
 choices.addEventListener('click', function (event){
   var element =  event.target;
@@ -125,6 +139,7 @@ choices.addEventListener('click', function (event){
 function startQuiz () {
   start.setAttribute('style', 'display: none;')
   choices.setAttribute('style', 'display: block;');
+  started = true;
   timerFunction();
   nextQuestion(currentQuestion);
 }
@@ -140,7 +155,6 @@ function nextQuestion(questionNumber) {
   }
 }
 
-var timeLeft = 120;
 function timerFunction () {
   var timeInterval = setInterval( function () {
     timeLeft--;
@@ -150,6 +164,7 @@ function timerFunction () {
       clearInterval(timeInterval);
       question.textContent = 'All Done!';
       choices.textContent = '';
+      finalScore.textContent = timeLeft;
       submit.setAttribute('style', 'display: block;')
     }
   }
@@ -158,16 +173,45 @@ function timerFunction () {
 
 function submitScore (event) {
   event.preventDefault();
-  header.setAttribute('style', 'visibility: hidden');
-  question.textContent = 'High Scores:';
   submit.setAttribute('style', 'display: none');
-  scoreboard.setAttribute('style', 'display: block;');
+
+  var li = document.createElement('li');
+  li.textContent = initials.value + ' - ' + timeLeft;
+  highScores.push(li.textContent);
+
+  localStorage.setItem('localHighScores', JSON.stringify(highScores));
+  scoreboard.appendChild(li);
+
+  viewHighScores();
 }
 
-function viewHighScores(event) {
-  event.preventDefault();
+function viewHighScores() {
   header.setAttribute('style', 'visibility: hidden;');
-  start.setAttribute('style', 'display: block;')
+  start.setAttribute('style', 'display: none;')
+  answer.setAttribute('style', 'display: none;')
+  scoreboard.setAttribute('style', 'display: block;');
+
+  question.textContent = 'High Scores:';
+  highScoreOptions.setAttribute('style', 'display: block;');
+}
+
+function init() {
+  question.textContent = 'Welcome to the Coding Quiz Challenge!';
+  answer.textContent = 'Try to answer the following code-releated questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by 10 seconds!';
+}
+
+function scoreboardInit() {
+  var storedHighScores = JSON.parse(localStorage.getItem('localHighScores'));
+
+  if (storedHighScores !== null) {
+    highScores = storedHighScores;
+  }
+
+  for (i = 0; i < highScores.length; i++) {
+    var li = document.createElement('li');
+    li.textContent = highScores[i];
+    scoreboard.appendChild(li);
+  }
 }
 
 function clearScores() {
@@ -176,7 +220,14 @@ function clearScores() {
   }
 }
 
-function goBack () {
+function goBackFunction () {
   header.setAttribute('style', 'visibility: visible;');
+  start.setAttribute('style', 'display: block;');
   scoreboard.setAttribute('style', 'display: none;');
+  highScoreOptions.setAttribute('style', 'display: none;');
+  answer.setAttribute('style', 'display: block;');
+  init();
 }
+
+init();
+scoreboardInit();
