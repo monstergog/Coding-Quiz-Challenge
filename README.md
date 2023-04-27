@@ -18,3 +18,6 @@ const sortedAges = people.map(person => person.age);
 console.log(sortedNames); // ['Alice', 'John', 'Mary', 'Bob']
 console.log(sortedAges); // [20, 25, 28, 30]
 ```
+
+Numbers for Ordered List Within Buttons / High Scores:
+https://stackoverflow.com/questions/62792415/buttons-numbered-as-li-in-ol

@@ -52,14 +52,6 @@ button:hover {
   list-style-type: none;
 }
 
-ul {
-  padding-left: 0%;
-}
-
-li {
-  padding: 5px;
-}
-
 .choice {
   text-align: left;
   min-width: 40%;;
@@ -74,6 +66,25 @@ li {
   background-color: lavender;
   display: none;
   width: 50%;
+}
+
+ol {
+  list-style: none;
+  counter-reset: olCounter;
+  padding-left: 1%;
+}
+
+li {
+  counter-increment: olCounter;
+  padding: 5px;
+}
+
+#scoreboard li {
+  font-size: 20px;
+}
+
+#scoreboard li::before, li button::before {
+  content: counter(olCounter) ". ";
 }
 
 #highScoreOptions {
