@@ -25,9 +25,9 @@ main {
   padding: 5%;
 }
 
-form {
+#choices {
   display: none;
-  font-size: 30px;
+  list-style-type: none;
 }
 
 button, input[type=submit] {
@@ -47,25 +47,9 @@ button:hover {
   border-color: violet;
 }
 
-#choices {
-  display: none;
-  list-style-type: none;
-}
-
 .choice {
   text-align: left;
   min-width: 40%;;
-}
-
-#start {
-  min-width: fit-content;
-}
-
-#scoreboard {
-  color: black;
-  background-color: lavender;
-  display: none;
-  width: 50%;
 }
 
 ol {
@@ -79,16 +63,32 @@ li {
   padding: 5px;
 }
 
-#scoreboard li {
-  font-size: 20px;
-}
-
 #scoreboard li::before, li button::before {
   content: counter(olCounter) ". ";
 }
 
+#scoreboard {
+  color: black;
+  background-color: lavender;
+  display: none;
+  width: 50%;
+}
+
+#scoreboard li {
+  font-size: 20px;
+}
+
 #highScoreOptions {
   display: none;
+}
+
+form {
+  display: none;
+  font-size: 30px;
+}
+
+#start {
+  min-width: fit-content;
 }
 
 hr {
