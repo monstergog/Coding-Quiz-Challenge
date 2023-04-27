@@ -104,7 +104,7 @@ var question10 = [
   1
 ]
 
-var currentQuestion = 0;
+var currentQuestion = 10;
 var started = false;
 var timeLeft = 120;
 var questions = [question1, question2, question3, question4, question5, question6, question7, question8, question9, question10];
@@ -139,6 +139,7 @@ choices.addEventListener('click', function (event){
 function startQuiz () {
   start.setAttribute('style', 'display: none;')
   choices.setAttribute('style', 'display: block;');
+  scoreLink.setAttribute('style', 'visibility: hidden;')
   started = true;
   timerFunction();
   nextQuestion(currentQuestion);
@@ -176,7 +177,8 @@ function submitScore (event) {
   submit.setAttribute('style', 'display: none');
 
   var li = document.createElement('li');
-  li.textContent = initials.value + ' - ' + timeLeft;
+  
+  li.textContent = initials.value.trim().slice(0,2) + ' - ' + timeLeft;
   highScores.push(li.textContent);
 
   localStorage.setItem('localHighScores', JSON.stringify(highScores));
@@ -222,6 +224,7 @@ function clearScores() {
 
 function goBackFunction () {
   header.setAttribute('style', 'visibility: visible;');
+  scoreLink.setAttribute('style', 'visibility: visible;');
   start.setAttribute('style', 'display: block;');
   scoreboard.setAttribute('style', 'display: none;');
   highScoreOptions.setAttribute('style', 'display: none;');
