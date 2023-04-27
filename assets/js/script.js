@@ -179,17 +179,21 @@ function timerFunction () {
 
 function submitScore (event) {
   event.preventDefault();
-  submit.setAttribute('style', 'display: none');
+  var userInitials = initials.value.trim().toUpperCase();
 
-  var li = document.createElement('li');
-  
-  li.textContent = initials.value.trim().slice(0,2).toUpperCase() + ' : ' + timeLeft;
-  highScores.push(li.textContent);
+  if (userInitials !== '') {
+    submit.setAttribute('style', 'display: none');
 
-  localStorage.setItem('localHighScores', JSON.stringify(highScores));
-  scoreboard.appendChild(li);
+    var li = document.createElement('li');
+    
+    li.textContent = userInitials + ' : ' + timeLeft;
+    highScores.push(li.textContent);
 
-  viewHighScores();
+    localStorage.setItem('localHighScores', JSON.stringify(highScores));
+    scoreboard.appendChild(li);
+
+    viewHighScores();
+  }
 }
 
 function viewHighScores() {

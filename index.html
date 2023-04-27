@@ -28,8 +28,8 @@
       <form id="submit">
         <div>Your Final Score: <span id="finalScore"></span></div>
         <label for="initials">Enter Initials:</label>
-        <input id="initials" name="initials" type="text" placeholder="Enter Initials">
-        <input type= "submit">
+        <input id="initials" name="initials" maxlength="2" pattern="[A-Za-z]{2}" type="text" placeholder="Enter Initials">
+        <input type="submit">
       </form>
       <button id="start" class="choice">Start the Quiz</button>
 
