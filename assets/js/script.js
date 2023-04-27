@@ -12,7 +12,7 @@ var choice = document.querySelector('.choice');
 var finalScore = document.querySelector('#finalScore');
 var highScoreOptions = document.querySelector('#highScoreOptions');
 var goBack = document.querySelector('#goBack');
-var clearScore = document.querySelector('#clearScore');
+var clearScores = document.querySelector('#clearScores');
 
 var question1 = [
   'Javascript is a ___ language?',
@@ -118,7 +118,8 @@ scoreLink.addEventListener('click', function (event) {
   }
 });
 submit.addEventListener('submit', submitScore);
-goBack.addEventListener('click', goBackFunction)
+goBack.addEventListener('click', goBackFunction);
+clearScores.addEventListener('click', clearScoresFunction);
 
 choices.addEventListener('click', function (event){
   var element =  event.target;
@@ -141,6 +142,7 @@ function startQuiz () {
   choices.setAttribute('style', 'display: block;');
   scoreLink.setAttribute('style', 'visibility: hidden;')
   started = true;
+  console.log(currentQuestion);
   timerFunction();
   nextQuestion(currentQuestion);
 }
@@ -164,8 +166,11 @@ function timerFunction () {
     if (timeLeft <= 0 || currentQuestion === 10) {
       clearInterval(timeInterval);
       question.textContent = 'All Done!';
-      choices.textContent = '';
+      choices.setAttribute('style', 'display: none;');
       finalScore.textContent = timeLeft;
+      started = false;
+      currentQuestion = 0;
+      timeLeft = 120;
       submit.setAttribute('style', 'display: block;')
     }
   }
@@ -178,7 +183,7 @@ function submitScore (event) {
 
   var li = document.createElement('li');
   
-  li.textContent = initials.value.trim().slice(0,2) + ' - ' + timeLeft;
+  li.textContent = initials.value.trim().slice(0,2).toUpperCase() + ' : ' + timeLeft;
   highScores.push(li.textContent);
 
   localStorage.setItem('localHighScores', JSON.stringify(highScores));
@@ -216,9 +221,11 @@ function scoreboardInit() {
   }
 }
 
-function clearScores() {
+function clearScoresFunction() {
   if (confirm('Are you sure you want to clear the scoreboard?')) {
-    
+    highScores = [];
+    scoreboard.textContent = '';
+    localStorage.setItem('localHighScores', JSON.stringify(highScores));
   }
 }
 
@@ -229,6 +236,7 @@ function goBackFunction () {
   scoreboard.setAttribute('style', 'display: none;');
   highScoreOptions.setAttribute('style', 'display: none;');
   answer.setAttribute('style', 'display: block;');
+
   init();
 }
 
