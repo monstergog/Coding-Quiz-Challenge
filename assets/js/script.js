@@ -104,11 +104,14 @@ var question10 = [
   1
 ]
 
-var currentQuestion = 10;
+var currentQuestion = 0;
 var started = false;
 var timeLeft = 120;
 var questions = [question1, question2, question3, question4, question5, question6, question7, question8, question9, question10];
-var highScores = [];
+var sortedinitialsList = [];
+var sortedscoresList = [];
+var initialsList = [];
+var scoresList = [];
 
 start.addEventListener('click', startQuiz);
 scoreLink.addEventListener('click', function (event) {
@@ -170,7 +173,6 @@ function timerFunction () {
       finalScore.textContent = timeLeft;
       started = false;
       currentQuestion = 0;
-      timeLeft = 120;
       submit.setAttribute('style', 'display: block;')
     }
   }
@@ -187,13 +189,30 @@ function submitScore (event) {
     var li = document.createElement('li');
     
     li.textContent = userInitials + ' : ' + timeLeft;
-    highScores.push(li.textContent);
+    initialsList.push(userInitials);
+    scoresList.push(timeLeft);
+    initials.value = "";
 
-    localStorage.setItem('localHighScores', JSON.stringify(highScores));
+    sortScores();
+    console.log(sortedinitialsList);
+    console.log(sortedscoresList);
+
+    localStorage.setItem('localSortedInitialsList', JSON.stringify(sortedinitialsList));
+    localStorage.setItem('localSortedScoresList', JSON.stringify(sortedscoresList));
     scoreboard.appendChild(li);
 
+    timeLeft = 120;
     viewHighScores();
   }
+}
+
+// High score sorting function
+function sortScores() {
+  var highScores = initialsList.map((name, index) => ({ name, score: scoresList[index] }));
+  highScores.sort((a, b) => b.score - a.score);
+  
+  sortedinitialsList = highScores.map(person => person.name);
+  sortedscoresList = highScores.map(person => person.score);
 }
 
 function viewHighScores() {
@@ -212,24 +231,28 @@ function init() {
 }
 
 function scoreboardInit() {
-  var storedHighScores = JSON.parse(localStorage.getItem('localHighScores'));
+  var storedInitials = JSON.parse(localStorage.getItem('localSortedInitialsList'));
+  var storedScores = JSON.parse(localStorage.getItem('localSortedScoresList'));
 
-  if (storedHighScores !== null) {
-    highScores = storedHighScores;
+  if (storedInitials !== null || storedScores !== null) {
+    initialsList = storedInitials;
+    scoresList = storedScores;
   }
 
-  for (i = 0; i < highScores.length; i++) {
+  for (i = 0; i < initialsList.length; i++) {
     var li = document.createElement('li');
-    li.textContent = highScores[i];
+    li.textContent = initialsList[i] + ' : ' + scoresList[i];
     scoreboard.appendChild(li);
   }
 }
 
 function clearScoresFunction() {
   if (confirm('Are you sure you want to clear the scoreboard?')) {
-    highScores = [];
+    sortedinitialsList = [];
+    sortedscoresList = [];
     scoreboard.textContent = '';
-    localStorage.setItem('localHighScores', JSON.stringify(highScores));
+    localStorage.setItem('localSortedInitialsList', JSON.stringify(sortedinitialsList));
+    localStorage.setItem('localSortedScoresList', JSON.stringify(sortedscoresList));
   }
 }
 

@@ -1,16 +1,20 @@
 # Coding-Quiz-Challenge
 
-AS A coding boot camp student
-I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
-SO THAT I can gauge my progress compared to my peers
-
-WHEN all questions are answered or the timer reaches 0
-THEN the game is over
-
-WHEN the game is over
-THEN I can save my initials and score
-
-
 
 Questions and Solutions From:
 https://www.interviewbit.com/javascript-mcq/
+
+Sorting Function Based on ChatGPT Sorting Code:
+```javascript
+const names = ['John', 'Alice', 'Bob', 'Mary'];
+const ages = [25, 20, 30, 28];
+
+const people = names.map((name, index) => ({ name, age: ages[index] }));
+people.sort((a, b) => a.age - b.age);
+
+const sortedNames = people.map(person => person.name);
+const sortedAges = people.map(person => person.age);
+
+console.log(sortedNames); // ['Alice', 'John', 'Mary', 'Bob']
+console.log(sortedAges); // [20, 25, 28, 30]
+```
